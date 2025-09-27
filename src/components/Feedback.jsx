@@ -201,9 +201,20 @@ function Feedback() {
                           : 'bg-white/65 border-amber-100 hover:bg-white/80 hover:border-amber-200'}
                         `}
                       >
-                        {/* Quote icon repositioned inside card */}
-                        <span className="mb-3 inline-flex h-7 w-7 items-center justify-center rounded-full bg-amber-500 text-white shadow-sm text-[13px] font-semibold">
-                          “
+                        {/* Modern minimal quote icon */}
+                        <span
+                          aria-hidden="true"
+                          className="mb-3 inline-flex h-8 w-8 items-center justify-center rounded-full border border-amber-200/70 bg-white/80 backdrop-blur-sm shadow-sm text-amber-500"
+                        >
+                          <svg
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            className="opacity-90"
+                          >
+                            <path d="M7.17 6C5.4 6 4 7.4 4 9.17c0 1.76 1.4 3.16 3.17 3.16.2 0 .4-.02.6-.05-.26 1.14-1.09 2.31-2.44 3.5-.26.23-.29.63-.06.9.23.26.63.29.9.06 1.86-1.6 2.94-3.28 3.2-5 .04-.25.06-.5.06-.76V9.17C9.33 7.4 7.93 6 7.17 6Zm9.66 0c-1.77 0-3.16 1.4-3.16 3.17v2.16c0 .26.02.51.06.76.26 1.72 1.34 3.4 3.2 5 .27.23.67.2.9-.06.23-.27.2-.67-.06-.9-1.35-1.19-2.18-2.36-2.44-3.5.2.03.4.05.6.05 1.77 0 3.17-1.4 3.17-3.16C19.33 7.4 17.93 6 16.83 6Z" />
+                          </svg>
                         </span>
                         <Stars value={t.rating} />
                         <p className="mt-4 text-[13px] leading-relaxed text-neutral-700 flex-1">{t.text}</p>
