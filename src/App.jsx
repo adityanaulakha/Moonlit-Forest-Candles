@@ -9,6 +9,7 @@ import FestiveGifting from './components/FestiveGifting'
 import Banner from './components/Banner'
 import Feedback from './components/Feedback'
 import Footer from './components/Footer'
+import AboutFounder from './components/AboutFounder'
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
     <>
       <Navbar />
       <HeroSection />
+  <AboutFounder />
       <BestSeller />
       {/* <WhyChooseUs /> */}
       <ThoughtfullyCrafted />

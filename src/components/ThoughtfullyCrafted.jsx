@@ -30,7 +30,7 @@ function ThoughtfullyCrafted() {
             id="crafted-heading"
             className="tracking-[0.35em] text-3xl nt-semibold text-neutral-800 mb-5"
           >
-            THOUGHTFULLY CRAFTED
+            WHY CHOOSE US?
           </h2>
           <p className="text-sm sm:text-base leading-relaxed text-neutral-600">
             Illuminate your home guilt-free with candles that are as kind to the planet as they are beautiful.

@@ -146,23 +146,32 @@ function Feedback() {
       ref={sectionRef}
       tabIndex={0}
       aria-label="Customer testimonials carousel"
-      className="outline-none bg-gradient-to-b from-white to-amber-50/40 border-t border-amber-100 py-16 md:py-20"
+      className="relative outline-none border-t border-amber-100 py-20 md:py-24 bg-gradient-to-b from-white via-amber-50/30 to-white overflow-hidden"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onFocus={() => setIsPaused(true)}
       onBlur={() => setIsPaused(false)}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Decorative background elements */}
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -top-24 -left-20 w-[32rem] h-[32rem] bg-amber-200/40 blur-[100px] rounded-full animate-pulse opacity-40" />
+        <div className="absolute bottom-[-10rem] right-[-6rem] w-[28rem] h-[28rem] bg-rose-200/40 blur-[110px] rounded-full opacity-35" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(255,255,255,0)_0%,rgba(255,255,255,0.9)_70%)]" />
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading */}
-        <header className="text-center mb-12">
-          <h2 className="tracking-[0.35em] text-3xl font-semibold text-neutral-700 mb-4">CUSTOMER FEEDBACK</h2>
-          <div className="flex justify-center">
-            <span className="h-px w-32 bg-gradient-to-r from-transparent via-neutral-400/60 to-transparent" />
+        <header className="text-center mb-14">
+          {/* <h2 className="tracking-[0.35em] text-3xl font-semibold text-neutral-700 mb-4">CUSTOMER FEEDBACK</h2> */}
+          <h3 className="text-3xl sm:text-3xl font-medium tracking-wide text-neutral-800/95 mb-6">What our customers are saying</h3>
+          <div className="flex justify-center mb-2">
+            <span className="h-px w-40 bg-gradient-to-r from-transparent via-neutral-400/50 to-transparent" />
           </div>
+          <p className="max-w-2xl mx-auto text-[12px] sm:text-[13px] leading-relaxed text-neutral-500">Real experiences from people who welcomed our handcrafted aromas into their spaces.</p>
         </header>
 
         {/* Carousel Shell */}
-  <div className="relative overflow-hidden" aria-live="polite">
+        <div className="relative overflow-visible" aria-live="polite">
           {/* Track */}
             <div className="overflow-hidden">
               <div
@@ -171,24 +180,49 @@ function Feedback() {
                 style={{ transform: `translateX(${translatePercent}%)` }}
                 onTransitionEnd={handleTransitionEnd}
               >
-                {items.map((t, i) => (
-                  <article
-                    key={i + '_' + t.id}
-                    className="px-2 md:px-3 lg:px-4 flex-shrink-0"
-                    style={{ width: `${100 / itemsPerView}%` }}
-                    aria-label={`Testimonial by ${t.name}`}
-                  >
-                    <div className="h-full flex flex-col bg-white/75 backdrop-blur-sm border border-amber-100 rounded-sm p-5 md:p-6 shadow-[0_1px_2px_rgba(0,0,0,0.05)] hover:shadow-md transition">
-                      <Stars value={t.rating} />
-                      <p className="mt-3 text-[13px] leading-relaxed text-neutral-600 flex-1">{t.text}</p>
-                      <div className="mt-5 text-[11px] tracking-wide font-medium text-neutral-800">
-                        {t.name}
-                        <span className="text-neutral-400 font-normal"> • {t.location}</span>
-                        {t.verified && <span className="ml-1 inline-block text-emerald-600 text-[10px] font-semibold">VERIFIED</span>}
+                {items.map((t, i) => {
+                  // Determine the base index for highlight
+                  let baseIndex;
+                  if (i < itemsPerView) baseIndex = base.length - itemsPerView + i; // head clones
+                  else if (i >= itemsPerView + base.length) baseIndex = i - (itemsPerView + base.length); // tail clones
+                  else baseIndex = i - itemsPerView; // real items
+                  const isActive = baseIndex === visibleIndex;
+                  return (
+                    <article
+                      key={i + '_' + t.id}
+                      className="px-2 md:px-3 lg:px-4 flex-shrink-0"
+                      style={{ width: `${100 / itemsPerView}%` }}
+                      aria-label={`Testimonial by ${t.name}`}
+                    >
+                      <div
+                        className={`group relative h-full flex flex-col rounded-md border backdrop-blur-sm p-7 md:p-8 transition-colors duration-400
+                        ${isActive
+                          ? 'bg-white border-amber-300 shadow-[0_6px_22px_-8px_rgba(0,0,0,0.18)] ring-1 ring-amber-200'
+                          : 'bg-white/65 border-amber-100 hover:bg-white/80 hover:border-amber-200'}
+                        `}
+                      >
+                        {/* Quote icon repositioned inside card */}
+                        <span className="mb-3 inline-flex h-7 w-7 items-center justify-center rounded-full bg-amber-500 text-white shadow-sm text-[13px] font-semibold">
+                          “
+                        </span>
+                        <Stars value={t.rating} />
+                        <p className="mt-4 text-[13px] leading-relaxed text-neutral-700 flex-1">{t.text}</p>
+                        <div className="mt-6 flex items-center gap-3">
+                          <div className="h-9 w-9 rounded-full bg-gradient-to-br from-amber-400/60 to-rose-400/60 flex items-center justify-center text-[11px] font-semibold text-neutral-800">
+                            {t.name.split(' ').map(w => w[0]).slice(0,2).join('')}
+                          </div>
+                          <div className="text-[11px] tracking-wide font-medium text-neutral-800 leading-snug">
+                            {t.name}
+                            <span className="text-neutral-400 font-normal"> • {t.location}</span>
+                            {t.verified && <span className="ml-1 inline-block text-emerald-600 text-[10px] font-semibold">VERIFIED</span>}
+                          </div>
+                        </div>
+                        {/* Accent gradient bar */}
+                        <span className={`pointer-events-none absolute left-0 bottom-0 h-[3px] w-full rounded-b-md bg-gradient-to-r from-amber-300 via-rose-300 to-amber-300 opacity-0 transition-opacity duration-500 ${isActive ? 'opacity-100' : 'group-hover:opacity-70'}`}></span>
                       </div>
-                    </div>
-                  </article>
-                ))}
+                    </article>
+                  );
+                })}
               </div>
             </div>
 
@@ -216,14 +250,14 @@ function Feedback() {
 
           {/* Dots */}
           {carouselNeeded && (
-            <div className="mt-10 flex justify-center gap-2" aria-label="Testimonials navigation">
+            <div className="mt-12 flex justify-center gap-2" aria-label="Testimonials navigation">
               {base.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => jumpTo(i)}
                   aria-label={`Go to testimonials group ${i + 1}`}
                   aria-current={visibleIndex === i}
-                  className={`h-2.5 w-2.5 rounded-full transition-colors ${visibleIndex === i ? 'bg-neutral-800' : 'bg-neutral-400/40 hover:bg-neutral-500/70'}`}
+                  className={`h-2.5 w-2.5 rounded-full transition-all ${visibleIndex === i ? 'bg-neutral-900 scale-110' : 'bg-neutral-400/40 hover:bg-neutral-500/70'}`}
                 />
               ))}
             </div>
