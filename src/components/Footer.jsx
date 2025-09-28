@@ -91,7 +91,7 @@ function Footer() {
       {/* Bottom Bar */}
   <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-16 py-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-          <p className="text-[10px] tracking-[0.3em] font-medium text-white/80">© {year} DOFT CANDLES</p>
+          <p className="text-[10px] tracking-[0.3em] font-medium text-white/80">© {year} MOONLIT FOREST CANDLES</p>
           <div className="flex flex-wrap gap-5 text-[10px] text-white/60">
             <a href="#" className="hover:text-white">Imprint</a>
             <a href="#" className="hover:text-white">Accessibility</a>
